@@ -183,9 +183,98 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 640px) {
-            header { flex-direction: column; text-align: center; }
-            .social-links { justify-content: center; }
+        .feed-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.9rem;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25 ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .feed-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        .feed-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+
+        .post-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .post-card:hover {
+            border-color: rgba(0, 242, 254, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .badge-linkedin { background: rgba(10, 102, 194, 0.2); color: #0a66c2; border: 1px solid rgba(10, 102, 194, 0.4); }
+        .badge-twitter { background: rgba(29, 155, 240, 0.2); color: #1da1f2; border: 1px solid rgba(29, 155, 240, 0.4); }
+        .badge-instagram { background: rgba(225, 48, 108, 0.2); color: #e1306c; border: 1px solid rgba(225, 48, 108, 0.4); }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .post-content {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
     </style>
 </head>
@@ -220,6 +309,20 @@
             </div>
         </div>
 
+        <!-- Social Posts Feed Section -->
+        <div class="section">
+            <div class="section-title">Live Activity Feed</div>
+            <div class="feed-tabs">
+                <button class="tab-btn active" onclick="filterFeed('all')">All Posts</button>
+                <button class="tab-btn" onclick="filterFeed('linkedin')">LinkedIn</button>
+                <button class="tab-btn" onclick="filterFeed('twitter')">X / Twitter</button>
+                <button class="tab-btn" onclick="filterFeed('instagram')">Instagram</button>
+            </div>
+            <div class="feed-container" id="feed-container">
+                <!-- Dynamic Posts rendered via JS -->
+            </div>
+        </div>
+
         <div class="section">
             <div class="section-title">Connect</div>
             <div class="social-links">
@@ -229,5 +332,78 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const socialPosts = [
+            {
+                platform: 'linkedin',
+                badgeClass: 'badge-linkedin',
+                platformName: 'LinkedIn',
+                time: '2 days ago',
+                content: 'Reflecting on the place I thought I knew — rediscovering Kanha Shanti Vanam and exploring sustainable eco-architectural systems for community scale transformation.',
+                stats: '👍 42 Likes • 💬 8 Comments',
+                link: 'https://www.linkedin.com/in/climabhi'
+            },
+            {
+                platform: 'twitter',
+                badgeClass: 'badge-twitter',
+                platformName: 'Twitter / X',
+                time: '3 days ago',
+                content: 'Building autonomous agent workflows with custom local skills & CLI tools. The speed at which LLM orchestrations can perform complete pipeline deployments is insane. 🚀 #AI #BuildInPublic',
+                stats: '🔁 12 Retweets • ❤️ 54 Likes',
+                link: 'https://twitter.com/climabhi'
+            },
+            {
+                platform: 'instagram',
+                badgeClass: 'badge-instagram',
+                platformName: 'Instagram',
+                time: '5 days ago',
+                content: 'Cyberpunk turned Solarpunk 🌿 | Field visits tracking carbon footprint metrics and corporate sustainability disclosures across industrial clusters.',
+                stats: '❤️ 89 Likes • 💬 5 Comments',
+                link: 'https://instagram.com/climabhi'
+            },
+            {
+                platform: 'linkedin',
+                badgeClass: 'badge-linkedin',
+                platformName: 'LinkedIn',
+                time: '1 week ago',
+                content: 'Carbon accounting isn’t just compliance — it’s systemic efficiency. Excited to share our latest breakdown of Scope 1, 2, and 3 footprint calculation methodologies.',
+                stats: '👍 67 Likes • 💬 14 Comments',
+                link: 'https://www.linkedin.com/in/climabhi'
+            }
+        ];
+
+        function renderFeed(filter = 'all') {
+            const container = document.getElementById('feed-container');
+            container.innerHTML = '';
+            
+            const filtered = filter === 'all' ? socialPosts : socialPosts.filter(p => p.platform === filter);
+
+            filtered.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `
+                    <div class="post-header">
+                        <span class="platform-badge ${post.badgeClass}">${post.platformName}</span>
+                        <span class="post-time">${post.time}</span>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-stats">
+                        <span>${post.stats}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterFeed(platform) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderFeed(platform);
+        }
+
+        // Initialize feed
+        renderFeed();
+    </script>
 </body>
 </html>
