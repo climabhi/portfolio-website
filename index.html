@@ -178,6 +178,100 @@
             box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
         }
 
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.08);
+        }
+
+        .resume-banner {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(79, 172, 254, 0.06));
+            border: 1.5px solid rgba(0, 242, 254, 0.4);
+            border-radius: 18px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .resume-banner:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+        }
+
+        .resume-banner-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resume-banner-info p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .banner-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.6rem;
+        }
+
+        .banner-tag {
+            font-size: 0.75rem;
+            font-family: monospace;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -280,16 +374,49 @@
 </head>
 <body>
     <div class="container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--accent-cyan); font-size: 1rem;">
+                AD.SYS
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="resume.html" class="nav-link" style="color: var(--accent-cyan); font-weight: 700;">Resume 📄</a>
+                <a href="https://www.linkedin.com/in/abhishekdwi/" target="_blank" rel="noopener noreferrer" class="nav-link">LinkedIn ↗</a>
+            </div>
+        </nav>
+
         <header>
             <div class="avatar">
                 <img src="https://avatars.githubusercontent.com/u/31849526?v=4" alt="Abhishek Dwivedi">
             </div>
             <div class="header-text">
                 <h1>Abhishek Dwivedi</h1>
-                <div class="tagline">Cyberpunk turned Solarpunk</div>
-                <div class="location">📍 Pune, India | TÜV</div>
+                <div class="tagline">Tech-Native BDM • ESG & Applied AI Leader</div>
+                <div class="location">📍 Pune, India | TÜV SÜD</div>
             </div>
         </header>
+
+        <!-- Featured Resume Callout Banner -->
+        <div class="resume-banner">
+            <div class="resume-banner-info">
+                <h3><span>⚡</span> Executive Career Dossier &amp; Resume</h3>
+                <p>
+                    Explore 5 years of aggressive commercial growth in regulatory compliance, ESG transition (₹15,000+ Cr valuation), regional P&amp;L oversight across 7 branches, and tech-native AI workflows.
+                </p>
+                <div class="banner-tags">
+                    <span class="banner-tag">TÜV SÜD (+400% YoY)</span>
+                    <span class="banner-tag">EcoEx (100K+ Tons EPR)</span>
+                    <span class="banner-tag">Claude Certified</span>
+                    <span class="banner-tag">LIDAR DMRV ML</span>
+                </div>
+            </div>
+            <div>
+                <a href="resume.html" class="btn btn-primary" style="white-space: nowrap;">
+                    Open Web Resume ↗
+                </a>
+            </div>
+        </div>
 
         <div class="section">
             <div class="section-title">About Me</div>
@@ -325,9 +452,18 @@
 
         <div class="section">
             <div class="section-title">Connect</div>
-            <div class="social-links">
-                <a href="https://github.com/climabhi" target="_blank" class="btn btn-primary">
-                    GitHub Profile ↗
+            <div class="social-links" style="flex-wrap: wrap;">
+                <a href="resume.html" class="btn btn-primary">
+                    View Web Resume 📄
+                </a>
+                <a href="https://www.linkedin.com/in/abhishekdwi/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    LinkedIn ↗
+                </a>
+                <a href="mailto:abhi.dwi@icloud.com" class="btn btn-secondary">
+                    Email Me 📩
+                </a>
+                <a href="https://github.com/climabhi" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    GitHub ↗
                 </a>
             </div>
         </div>

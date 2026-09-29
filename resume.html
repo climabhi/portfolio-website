@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Dwivedi | Web Resume & Career Dossier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #070b14;
+            --surface: #0f172a;
+            --surface-card: #141e33;
+            --surface-hover: #1e293b;
+            --border: #24344d;
+            --border-highlight: #38bdf8;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-gold: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --flat-shadow: 4px 4px 0px rgba(0, 242, 254, 0.4);
+            --flat-shadow-dark: 4px 4px 0px #030712;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Motion Background Canvas */
+        #motion-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.65;
+        }
+
+        /* Floating Geometric Shapes */
+        .geo-shape {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.25;
+            animation: floatShape 16s infinite ease-in-out alternate;
+        }
+        .geo-1 {
+            top: 12%;
+            left: 4%;
+            width: 70px;
+            height: 70px;
+            border: 2px solid var(--accent-cyan);
+            transform: rotate(45deg);
+        }
+        .geo-2 {
+            top: 45%;
+            right: 3%;
+            width: 90px;
+            height: 90px;
+            border: 2px dashed var(--accent-green);
+            border-radius: 50%;
+            animation-duration: 22s;
+        }
+        .geo-3 {
+            bottom: 18%;
+            left: 6%;
+            width: 50px;
+            height: 50px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid var(--accent-gold);
+            animation-duration: 18s;
+        }
+        @keyframes floatShape {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(90deg); }
+            100% { transform: translateY(15px) rotate(180deg); }
+        }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green), var(--accent-gold));
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Top Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border);
+            padding: 0.85rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.5px;
+        }
+        .nav-brand .pulse-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulseDot 2s infinite ease-in-out;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            color: var(--text-main);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .nav-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0px var(--accent-cyan);
+        }
+        .nav-btn-primary {
+            background: var(--accent-cyan);
+            color: #050b14;
+            border-color: var(--accent-cyan);
+            font-weight: 700;
+        }
+        .nav-btn-primary:hover {
+            background: #38bdf8;
+            color: #050b14;
+            border-color: #38bdf8;
+            box-shadow: 3px 3px 0px #ffffff;
+        }
+
+        /* Marquee Ticker */
+        .marquee-wrapper {
+            background: #030712;
+            border-bottom: 2px solid var(--border);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0.5rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        .marquee-content span {
+            color: var(--accent-cyan);
+            margin: 0 1rem;
+        }
+        .marquee-content strong {
+            color: #fff;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Main Container */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1100px;
+            margin: 2.5rem auto 5rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Flat Hero Header */
+        .hero-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.75rem;
+            position: relative;
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.6);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+        .hero-card:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.75rem;
+        }
+        .hero-title-group h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .verified-badge {
+            font-size: 0.75rem;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1.5px solid var(--accent-green);
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .hero-role {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .hero-role-tag {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #38bdf8;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Contact Badges */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .contact-pill {
+            background: var(--surface-card);
+            border: 1.5px solid var(--border);
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            color: var(--text-main);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .contact-pill:hover {
+            border-color: var(--accent-cyan);
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0px var(--accent-cyan);
+            color: #fff;
+        }
+        .copy-tooltip {
+            cursor: pointer;
+        }
+        .copy-feedback {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-green);
+            color: #030712;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        /* Executive Bio */
+        .hero-bio {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.75;
+            border-top: 1.5px solid var(--border);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .hero-bio strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .highlight-term {
+            background: rgba(0, 242, 254, 0.08);
+            border-bottom: 2px solid var(--accent-cyan);
+            color: #ffffff;
+            padding: 0 4px;
+            font-weight: 600;
+        }
+
+        /* Animated Stat Counter Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.25rem 1.1rem;
+            box-shadow: 4px 4px 0px #030712;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            transform: translate(-3px, -3px);
+            border-color: var(--card-accent, var(--accent-cyan));
+            box-shadow: 6px 6px 0px var(--card-accent, var(--accent-cyan));
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-accent, var(--accent-cyan));
+        }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.15rem;
+        }
+        .stat-num .prefix, .stat-num .suffix {
+            color: var(--card-accent, var(--accent-cyan));
+        }
+        .stat-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.35;
+        }
+        .stat-sub {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 0.35rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Section Title Styling */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .section-icon-box {
+            width: 40px;
+            height: 40px;
+            background: var(--surface-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 2px 2px 0px #000;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+        .section-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        /* Interactive Filter Chips */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+            background: var(--surface);
+            padding: 0.6rem;
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--border);
+        }
+        .filter-chip {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 0.45rem 0.95rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-chip:hover {
+            color: var(--text-main);
+            background: var(--surface-card);
+        }
+        .filter-chip.active {
+            background: var(--accent-cyan);
+            color: #030712;
+            font-weight: 700;
+            box-shadow: 2px 2px 0px #ffffff;
+        }
+
+        /* Experience Timeline */
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        .timeline-track {
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            bottom: 20px;
+            width: 3px;
+            background: var(--border);
+        }
+        .timeline-progress {
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 3px;
+            height: 0%;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-green));
+            transition: height 0.2s ease-out;
+        }
+
+        /* Experience Card */
+        .experience-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 5px 5px 0px #030712;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .experience-card:hover {
+            border-color: var(--card-border-hover, var(--accent-cyan));
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0px var(--card-shadow-hover, rgba(0, 242, 254, 0.4));
+        }
+
+        /* Timeline Node Dot */
+        .timeline-node {
+            position: absolute;
+            left: -2.35rem;
+            top: 2.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--node-color, var(--accent-cyan));
+            border: 3px solid var(--bg-color);
+            box-shadow: 0 0 0 2px var(--node-color, var(--accent-cyan));
+            z-index: 2;
+        }
+
+        /* Company Header inside Experience Card */
+        .card-header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            border-bottom: 1.5px solid var(--border);
+            padding-bottom: 1.25rem;
+        }
+        .company-identity {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+        .company-logo-box {
+            width: 68px;
+            height: 68px;
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+            flex-shrink: 0;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .experience-card:hover .company-logo-box {
+            transform: scale(1.05);
+        }
+        .company-logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .company-meta h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .company-meta .role-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 0.15rem;
+        }
+        .company-meta .location-date {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tenure-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-sm);
+            background: var(--surface-card);
+            border: 1.5px solid var(--border);
+            color: var(--accent-green);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Sub-sections within Experience (e.g. EcoEx) */
+        .sub-track-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--surface-card);
+            border-left: 4px solid var(--accent-gold);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+        .sub-track-title.epr {
+            border-left-color: var(--accent-green);
+        }
+
+        /* Bullet Points List */
+        .achievements-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+        .achievement-item {
+            position: relative;
+            padding-left: 1.75rem;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            transition: all 0.2s ease;
+        }
+        .achievement-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            top: -1px;
+            font-size: 1.2rem;
+            color: var(--item-bullet, var(--accent-cyan));
+            font-weight: 800;
+        }
+        .achievement-item strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .achievement-item:hover {
+            color: #f1f5f9;
+            transform: translateX(4px);
+        }
+        .achievement-item.highlighted {
+            background: rgba(0, 242, 254, 0.08);
+            border-radius: 6px;
+            padding: 0.35rem 0.75rem 0.35rem 2rem;
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Inline badges within achievements */
+        .inline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.15rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid transparent;
+            margin: 0 0.15rem;
+            vertical-align: middle;
+            transition: all 0.2s ease;
+        }
+        .badge-link {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        .badge-link:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+        .badge-ai {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+        .badge-esg {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Two-Column Grid for Education & Certifications */
+        .dual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem;
+            margin-bottom: 3rem;
+        }
+        @media (max-width: 860px) {
+            .dual-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 580px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-card {
+                padding: 1.75rem 1.25rem;
+            }
+            .hero-title-group h1 {
+                font-size: 2.2rem;
+            }
+            .experience-card {
+                padding: 1.5rem 1.25rem;
+            }
+            .timeline-container {
+                padding-left: 1.25rem;
+            }
+            .timeline-node {
+                left: -1.75rem;
+            }
+        }
+
+        /* Education Card */
+        .edu-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: 5px 5px 0px #030712;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .edu-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0px var(--accent-cyan);
+        }
+        .edu-top {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .edu-logo-box {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-shadow: 2px 2px 0px #000;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .edu-logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .edu-meta h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 0.2rem;
+        }
+        .edu-degree {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+        .edu-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .spec-chip {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+        }
+
+        /* Certifications Card Container */
+        .cert-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .cert-item {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            box-shadow: 4px 4px 0px #030712;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.25s ease;
+        }
+        .cert-item:hover {
+            border-color: var(--cert-accent, var(--accent-purple));
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--cert-accent, var(--accent-purple));
+        }
+        .cert-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .cert-logo-box {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            flex-shrink: 0;
+            box-shadow: 2px 2px 0px #000;
+        }
+        .cert-logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .cert-info h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+        .cert-info p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .cert-links-group {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.35rem;
+        }
+        .cert-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            transition: all 0.15s ease;
+        }
+        .cert-btn:hover {
+            background: var(--accent-cyan);
+            color: #030712;
+            border-color: var(--accent-cyan);
+        }
+
+        /* Tech & Frameworks Interactive Matrix */
+        .matrix-section {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: 6px 6px 0px #030712;
+            margin-bottom: 3rem;
+        }
+        .matrix-category {
+            margin-bottom: 1.5rem;
+        }
+        .matrix-category:last-child {
+            margin-bottom: 0;
+        }
+        .matrix-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.75px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .matrix-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .matrix-chip {
+            background: var(--surface-card);
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .matrix-chip:hover {
+            border-color: var(--accent-cyan);
+            transform: translate(-2px, -2px);
+            box-shadow: 3px 3px 0px var(--accent-cyan);
+            color: #ffffff;
+        }
+        .matrix-chip.active {
+            background: var(--accent-cyan);
+            color: #030712;
+            font-weight: 700;
+            border-color: var(--accent-cyan);
+            box-shadow: 3px 3px 0px #ffffff;
+        }
+
+        /* Bottom Call to Action */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(16, 185, 129, 0.1));
+            border: 2px dashed var(--accent-cyan);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 6px 6px 0px #030712;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .cta-banner h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+        .cta-banner p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 1.5rem;
+            font-size: 1rem;
+        }
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 2px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: #030712;
+            position: relative;
+            z-index: 10;
+        }
+        footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        /* PRINT STYLESHEET - Executive Clean Print Layout */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            #motion-canvas, .geo-shape, .navbar, .marquee-wrapper, #scroll-progress,
+            .filter-bar, .cta-banner, footer, .copy-feedback, .timeline-track, .timeline-progress {
+                display: none !important;
+            }
+            .wrapper {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .hero-card, .experience-card, .edu-card, .cert-item, .stat-card, .matrix-section {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                color: #0f172a !important;
+                margin-bottom: 1rem !important;
+                padding: 1rem !important;
+                page-break-inside: avoid;
+            }
+            .hero-title-group h1, .company-meta h2, .edu-meta h3, .cert-info h4, .section-title {
+                color: #0f172a !important;
+            }
+            .hero-role, .company-meta .role-title, .edu-degree {
+                color: #1e3a8a !important;
+            }
+            .hero-bio, .achievement-item, .stat-label, .cert-info p {
+                color: #334155 !important;
+            }
+            .stat-num {
+                color: #0f172a !important;
+                font-size: 1.5rem !important;
+            }
+            .timeline-container {
+                padding-left: 0 !important;
+            }
+            .timeline-node {
+                display: none !important;
+            }
+            .company-logo-box, .edu-logo-box, .cert-logo-box {
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Motion Graphics Background Canvas -->
+    <canvas id="motion-canvas"></canvas>
+
+    <!-- Floating Flat Geometric Accents -->
+    <div class="geo-shape geo-1"></div>
+    <div class="geo-shape geo-2"></div>
+    <div class="geo-shape geo-3"></div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <span class="pulse-dot"></span>
+            <span>ABHISHEK DWIVEDI</span>
+        </a>
+        <div class="nav-actions">
+            <a href="index.html" class="nav-btn">
+                <span>← Home Site</span>
+            </a>
+            <button onclick="window.print()" class="nav-btn">
+                <span>🖨️ Print / PDF</span>
+            </button>
+            <a href="https://www.linkedin.com/in/abhishekdwi/" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-primary">
+                <span>LinkedIn Profile ↗</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Kinetic Marquee Ticker -->
+    <div class="marquee-wrapper">
+        <div class="marquee-content">
+            <span>●</span> <strong>BUSINESS DEVELOPMENT MANAGER</strong>
+            <span>●</span> 5 YEARS AGGRESSIVE REGULATORY & ESG GROWTH
+            <span>●</span> <strong>+400% YOY BRANCH REVENUE</strong>
+            <span>●</span> P&L RESPONSIBILITY ACROSS 7 REGIONAL BRANCHES
+            <span>●</span> <strong>EPR COMPLIANCE (1,00,000+ TONS)</strong>
+            <span>●</span> AI-NATIVE WORKFLOWS (CLAUDE CODE & DMRV ML)
+            <span>●</span> <strong>₹15,000+ CR VALUATION ESG TRANSITION</strong>
+            <span>●</span> VERRA PWRM0002 & CPCB EPR ROADMAPS
+            <span>●</span> <strong>CII JAPAN CLIMATE MISSION DELEGATE</strong>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        <!-- Executive Hero Header -->
+        <header class="hero-card">
+            <div class="hero-top">
+                <div class="hero-title-group">
+                    <h1>
+                        ABHISHEK DWIVEDI
+                        <span class="verified-badge">● ACTIVE REGULATORY & ESG LEADER</span>
+                    </h1>
+                    <div class="hero-role">
+                        <span>Tech-Native Business Development Manager</span>
+                        <span class="hero-role-tag">ESG • REGULATORY COMPLIANCE • APPLIED AI</span>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="contact-grid">
+                        <div class="contact-pill">
+                            <span>📍</span> Pune, India
+                        </div>
+                        <a href="tel:+918709952337" class="contact-pill copy-tooltip" onclick="copyText('+91-8709952337', this); return false;">
+                            <span>📲</span> +91-8709952337
+                            <span class="copy-feedback">Copied!</span>
+                        </a>
+                        <a href="mailto:abhi.dwi@icloud.com" class="contact-pill copy-tooltip" onclick="copyText('abhi.dwi@icloud.com', this); return false;">
+                            <span>📩</span> abhi.dwi@icloud.com
+                            <span class="copy-feedback">Copied!</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abhishekdwi/" target="_blank" rel="noopener noreferrer" class="contact-pill">
+                            <span>🔗</span> linkedin.com/in/abhishekdwi ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-bio">
+                <strong>Tech-native Business Development Manager</strong> with <strong>5 years of experience</strong> driving aggressive revenue growth in the regulatory compliance sector, specializing in the <strong>ESG domain</strong>. Proven track record of consistently exceeding sales quotas, managing regional P&L, and consulting multinational clients on frameworks such as <span class="highlight-term">GRI</span>, <span class="highlight-term">EPR</span>, <span class="highlight-term">ESRS</span>, and <span class="highlight-term">GHG</span>. Uniquely combines commercial strategy with applied AI fluency — championing the go-to-market strategy for tech-enabled certification products like <strong>Computer Vision ML for forest carbon sequestration (DMRV)</strong>.
+            </div>
+        </header>
+
+        <!-- Metric Motion Counters Grid -->
+        <section class="stats-grid">
+            <div class="stat-card" style="--card-accent: var(--accent-cyan);">
+                <div class="stat-num">
+                    <span class="prefix">+</span><span class="counter" data-target="400">0</span><span class="suffix">%</span>
+                </div>
+                <div class="stat-label">YoY ESG Revenue Surge</div>
+                <div class="stat-sub">TÜV SÜD West Region</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-green);">
+                <div class="stat-num">
+                    <span class="prefix">+</span><span class="counter" data-target="55">0</span><span class="suffix">%</span>
+                </div>
+                <div class="stat-label">Quota Overachievement</div>
+                <div class="stat-sub">EcoEx Strategic Sales</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-gold);">
+                <div class="stat-num">
+                    <span class="counter" data-target="100">0</span><span class="suffix">K+</span>
+                </div>
+                <div class="stat-label">Tons EPR Handled / Year</div>
+                <div class="stat-sub">Major FMCG/FMCD PIBOs</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-purple);">
+                <div class="stat-num">
+                    <span class="prefix">₹</span><span class="counter" data-target="15000">0</span><span class="suffix">+ Cr</span>
+                </div>
+                <div class="stat-label">Enterprise ESG Transition</div>
+                <div class="stat-sub">SBTi • UNGC • GRI • CSRD</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-rose);">
+                <div class="stat-num">
+                    <span class="counter" data-target="7">0</span><span class="suffix"> Branches</span>
+                </div>
+                <div class="stat-label">Regional P&L Oversight</div>
+                <div class="stat-sub">Promoted in &lt;6 Months</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-blue);">
+                <div class="stat-num">
+                    <span class="counter" data-target="50">0</span><span class="suffix">+</span>
+                </div>
+                <div class="stat-label">Global Climate Conferences</div>
+                <div class="stat-sub">Japan Govt &amp; CII Mission</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-green);">
+                <div class="stat-num">
+                    <span class="counter" data-target="33">0</span><span class="suffix">%</span>
+                </div>
+                <div class="stat-label">Service Efficacy Gain</div>
+                <div class="stat-sub">22-Point Audit Matrix</div>
+            </div>
+
+            <div class="stat-card" style="--card-accent: var(--accent-cyan);">
+                <div class="stat-num">
+                    <span class="counter" data-target="80">0</span><span class="suffix">%</span>
+                </div>
+                <div class="stat-label">DMRV ML Precision</div>
+                <div class="stat-sub">LIDAR Forest Carbon ML</div>
+            </div>
+        </section>
+
+        <!-- Interactive Filter Chips -->
+        <div class="filter-bar">
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); display: flex; align-items: center; padding: 0 0.5rem;">
+                ⚡ HIGHLIGHT FOCUS:
+            </span>
+            <button class="filter-chip active" onclick="filterExperience('all', this)">All Highlights</button>
+            <button class="filter-chip" onclick="filterExperience('tuv', this)">TÜV SÜD</button>
+            <button class="filter-chip" onclick="filterExperience('ecoex-sales', this)">EcoEx (Sales &amp; Leadership)</button>
+            <button class="filter-chip" onclick="filterExperience('ecoex-epr', this)">EcoEx (EPR &amp; Tech)</button>
+            <button class="filter-chip" onclick="filterExperience('ai', this)">Applied AI &amp; GenAI</button>
+        </div>
+
+        <!-- Experience Timeline -->
+        <section class="section-container">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <div class="section-icon-box">💼</div>
+                    <h2 class="section-title">Professional Experience</h2>
+                </div>
+                <div class="section-badge">5 YEARS TRACK RECORD</div>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-track"></div>
+                <div class="timeline-progress" id="timeline-progress"></div>
+
+                <!-- 1. TÜV SÜD CARD -->
+                <article class="experience-card" data-category="tuv ai" style="--node-color: var(--accent-cyan); --card-border-hover: var(--accent-cyan); --card-shadow-hover: rgba(0, 242, 254, 0.4);">
+                    <div class="timeline-node"></div>
+
+                    <div class="card-header-flex">
+                        <div class="company-identity">
+                            <div class="company-logo-box" title="TÜV SÜD Official Logo">
+                                <img src="assets/logos/tuv-sud.svg" alt="TÜV SÜD Logo">
+                            </div>
+                            <div class="company-meta">
+                                <h2>TÜV SÜD</h2>
+                                <div class="role-title">Manager - Business Development - Sustainability</div>
+                                <div class="location-date">📍 Pune, India | Feb 2025 – Present</div>
+                            </div>
+                        </div>
+                        <div class="tenure-pill">
+                            <span>●</span> CURRENT ROLE
+                        </div>
+                    </div>
+
+                    <ul class="achievements-list">
+                        <li class="achievement-item" data-tag="revenue ai">
+                            <strong>Drove a +400% YoY increase in branch ESG revenue</strong> through strategic market expansion and automated workflows for research-focused outreach and personalized prospecting with the help of <strong>Gen AI tools like Claude Code</strong>.
+                            <a href="https://academy.claude.com/verify/6fcfa59b6c149c257a199da40f7a5be1" target="_blank" rel="noopener noreferrer" class="inline-badge badge-ai">⚡ Claude Code Certified</a>
+                        </li>
+                        <li class="achievement-item" data-tag="leadership pnl">
+                            <strong>Promoted to oversee sustainability business development and operations across 7 branches in under 6 months</strong>, assuming full <strong>P&amp;L accountability</strong> for the comprehensive portfolio of sustainability products across the west region.
+                        </li>
+                        <li class="achievement-item" data-tag="product assurance">
+                            <strong>Spearheaded the development of a new product around Second-Party ESG Supplier Audits for OEMs</strong>, establishing a comprehensive risk-based assurance methodology, scoring matrices, and <strong>CAPA workflows</strong> to ensure strict alignment with global supply chain due diligence mandates.
+                            <span class="inline-badge badge-esg">ESG Supply Chain Due Diligence</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- 2. ECOEX CARD -->
+                <article class="experience-card" data-category="ecoex-sales ecoex-epr ai" style="--node-color: var(--accent-green); --card-border-hover: var(--accent-green); --card-shadow-hover: rgba(16, 185, 129, 0.4);">
+                    <div class="timeline-node" style="background: var(--accent-green); box-shadow: 0 0 0 2px var(--accent-green);"></div>
+
+                    <div class="card-header-flex">
+                        <div class="company-identity">
+                            <div class="company-logo-box" title="EcoEx Logo">
+                                <img src="assets/logos/ecoex.jpg" alt="EcoEx Logo">
+                            </div>
+                            <div class="company-meta">
+                                <h2>EcoEx</h2>
+                                <div class="role-title">Manager - Strategic Initiatives</div>
+                                <div class="location-date">📍 New Delhi, India | Mar 2022 – Jan 2025</div>
+                            </div>
+                        </div>
+                        <div class="tenure-pill" style="color: var(--accent-cyan); border-color: rgba(0, 242, 254, 0.3);">
+                            <span>⏱</span> 2 YRS 11 MOS
+                        </div>
+                    </div>
+
+                    <!-- Track A: Sales & Leadership -->
+                    <div class="sub-track-title">
+                        <span>🚀</span> Sales &amp; Commercial Leadership
+                    </div>
+                    <ul class="achievements-list">
+                        <li class="achievement-item" data-tag="revenue quota">
+                            <strong>Consistently recognized as the primary revenue generator</strong>, outperforming annual targets by <strong>up to 55%</strong> through EPR compliance solutions for major FMCGs/FMCDs, handling <strong>1,00,000+ tons annually</strong>.
+                            <span class="inline-badge badge-esg">100K+ Tons Volume</span>
+                        </li>
+                        <li class="achievement-item" data-tag="leadership architecture">
+                            <strong>Established the sales architecture as the Founding team member</strong>, developing standard operating procedures (SOPs), revenue forecasting models, and complex engagement strategies for <strong>30+ Sales Resources</strong>.
+                        </li>
+                        <li class="achievement-item" data-tag="mentorship">
+                            <strong>Mentored and managed an 8 person multi-disciplinary team</strong>, delivering training on environmental regulations like <strong>Polluter Pays principle</strong> and <strong>EPR</strong>, resulting in an increase of <strong>75% YoY retention rate</strong>.
+                        </li>
+                        <li class="achievement-item" data-tag="delegation international">
+                            <strong>Represented the Organisation at 50+ sustainability conferences</strong>, including climate engagements with the 
+                            <a href="https://www.ciiwaste2worth.com/cii-mission-on-waste-to-worth-technologies-to-japan.php" target="_blank" rel="noopener noreferrer" class="inline-badge badge-link" style="padding: 0.25rem 0.6rem; font-weight: 700;">
+                                <img src="assets/logos/cii.svg" alt="CII" style="height: 12px; vertical-align: middle; filter: invert(1);"> Japan Government in collaboration with CII ↗
+                            </a> 
+                            to secure long term strategic alliances.
+                        </li>
+                    </ul>
+
+                    <!-- Track B: EPR Strategy & Compliance Frameworks -->
+                    <div class="sub-track-title epr">
+                        <span>🌱</span> EPR Strategy &amp; Compliance Frameworks
+                    </div>
+                    <ul class="achievements-list">
+                        <li class="achievement-item" data-tag="enterprise esg">
+                            <strong>Navigated the ESG transition for a global enterprise with ₹15,000+ Cr valuation</strong>, ensuring successful alignment with international standards including 
+                            <span class="inline-badge badge-esg">SBTi</span>
+                            <span class="inline-badge badge-esg">UNGC</span>
+                            <span class="inline-badge badge-esg">GRI</span>
+                            <span class="inline-badge badge-esg">CSRD</span>.
+                        </li>
+                        <li class="achievement-item" data-tag="verra carbon">
+                            <strong>Collaborated with 30+ national environmental experts to engineer a plastic credit initiative under Verra Methodology PWRM0002</strong>, establishing critical monitoring parameters and additionality baselines.
+                        </li>
+                        <li class="achievement-item" data-tag="circular cpcb">
+                            <strong>Developed comprehensive circular economy roadmaps under CPCB EPR Policy for over 15 multinational firms and 30+ mid-market organizations</strong> with tech enabled service offering mainly around reverse auctions.
+                        </li>
+                        <li class="achievement-item" data-tag="saas tech">
+                            <strong>Launched a Traceability SaaS vertical for industrial waste</strong>, designing integrated software workflows to enhance client onboarding and verifiable reporting in collaboration with the outsourced software team.
+                        </li>
+                        <li class="achievement-item" data-tag="audit supply-chain">
+                            <strong>Deployed a rigorous 22-point auditing matrix for supply chain partners</strong>, achieving a <strong>33% gain in service efficacy</strong> and reducing procurement overhead by <strong>25%</strong> for the aforementioned organisations.
+                        </li>
+                        <li class="achievement-item" data-tag="ai dmrv">
+                            <strong>Managed the technical lifecycle of a machine learning tool for LIDAR drone based carbon sequestration</strong>, facilitating government clearances and market research to reach <strong>80% predictive precision</strong>.
+                            <span class="inline-badge badge-ai">Computer Vision ML • DMRV</span>
+                        </li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Two-Column Grid: Education & Certifications -->
+        <div class="dual-grid">
+
+            <!-- EDUCATION -->
+            <div class="edu-card">
+                <div>
+                    <div class="section-header" style="margin-bottom: 1.25rem;">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-box">🎓</div>
+                            <h2 class="section-title" style="font-size: 1.45rem;">EDUCATION</h2>
+                        </div>
+                    </div>
+
+                    <div class="edu-top">
+                        <div class="edu-logo-box" title="Christ University Logo">
+                            <img src="assets/logos/christ-university.png" alt="Christ University Logo">
+                        </div>
+                        <div class="edu-meta">
+                            <h3>CHRIST UNIVERSITY, BANGALORE</h3>
+                            <div class="edu-degree">MBA - CHRIST UNIVERSITY, BANGALORE - MARKETING &amp; FINANCE (Minor)</div>
+                            <div style="font-size: 0.85rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-top: 2px;">
+                                📍 Bangalore, India
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="edu-specs">
+                        <span class="spec-chip">MARKETING</span>
+                        <span class="spec-chip">FINANCE (Minor)</span>
+                        <span class="spec-chip">Commercial Strategy</span>
+                        <span class="spec-chip">Regional P&amp;L</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1.5px solid var(--border); font-size: 0.9rem; color: var(--text-muted);">
+                    Specialized training in financial modeling, quantitative forecasting, corporate compliance, and commercial market expansion.
+                </div>
+            </div>
+
+            <!-- CERTIFICATIONS -->
+            <div class="edu-card" style="border-color: var(--border);">
+                <div>
+                    <div class="section-header" style="margin-bottom: 1.25rem;">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-box">📜</div>
+                            <h2 class="section-title" style="font-size: 1.45rem;">CERTIFICATIONS</h2>
+                        </div>
+                    </div>
+
+                    <div class="cert-card-list">
+
+                        <!-- Claude / Anthropic -->
+                        <div class="cert-item" style="--cert-accent: #d97706;">
+                            <div class="cert-left">
+                                <div class="cert-logo-box" title="Claude / Anthropic">
+                                    <img src="assets/logos/claude.svg" alt="Claude AI Logo">
+                                </div>
+                                <div class="cert-info">
+                                    <h4>Claude</h4>
+                                    <p>Official Anthropic Verification</p>
+                                    <div class="cert-links-group">
+                                        <a href="https://academy.claude.com/verify/6fcfa59b6c149c257a199da40f7a5be1" target="_blank" rel="noopener noreferrer" class="cert-btn">
+                                            Code 101 ↗
+                                        </a>
+                                        <a href="https://academy.claude.com/verify/51f8a6a2053935a5a3271e2a9cb95d46" target="_blank" rel="noopener noreferrer" class="cert-btn">
+                                            Platform 101 ↗
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CSRD Institute -->
+                        <div class="cert-item" style="--cert-accent: #003399;">
+                            <div class="cert-left">
+                                <div class="cert-logo-box" title="CSRD Institute">
+                                    <img src="assets/logos/csrd-institute.svg" alt="CSRD Institute Logo">
+                                </div>
+                                <div class="cert-info">
+                                    <h4>CSRD Institute</h4>
+                                    <p>Corporate Sustainability Due Diligence</p>
+                                    <div class="cert-links-group">
+                                        <a href="https://www.icloud.com/iclouddrive/060Y5rCjg5p8k87SJpKw_J93A" target="_blank" rel="noopener noreferrer" class="cert-btn">
+                                            CSRD Level 1 ↗
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Moody's Analytics -->
+                        <div class="cert-item" style="--cert-accent: #0284c7;">
+                            <div class="cert-left">
+                                <div class="cert-logo-box" title="Moody's Analytics">
+                                    <img src="assets/logos/moodys-analytics.svg" alt="Moody's Analytics Logo">
+                                </div>
+                                <div class="cert-info">
+                                    <h4>Moody's Analytics</h4>
+                                    <p style="font-weight: 600; color: #f8fafc;">Sales Data Modelling and Forecasting with MS Excel and Tableau - 90 Hours</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Technical & ESG Frameworks Matrix -->
+        <section class="matrix-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <div class="section-icon-box">⚡</div>
+                    <h2 class="section-title">Frameworks, Methodologies &amp; Tech Stack</h2>
+                </div>
+                <div class="section-badge">INTERACTIVE EXPLORATION</div>
+            </div>
+
+            <div class="matrix-category">
+                <div class="matrix-label">
+                    <span>🌱</span> ESG &amp; Sustainability Mandates
+                </div>
+                <div class="matrix-chips">
+                    <span class="matrix-chip" onclick="pulseKeywords('EPR')">EPR (Extended Producer Responsibility)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('GRI')">GRI (Global Reporting Initiative)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('ESRS')">ESRS (European Sustainability Standards)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('GHG')">GHG Protocol (Scope 1, 2, 3)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('CSRD')">CSRD (Corporate Sustainability Reporting)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('SBTi')">SBTi (Science Based Targets)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('UNGC')">UNGC Principles</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('Verra')">Verra PWRM0002 Plastic Credits</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('CPCB')">CPCB EPR Policy</span>
+                </div>
+            </div>
+
+            <div class="matrix-category">
+                <div class="matrix-label">
+                    <span>🤖</span> Applied AI &amp; Digital Innovation
+                </div>
+                <div class="matrix-chips">
+                    <span class="matrix-chip" onclick="pulseKeywords('Claude')">Claude Code &amp; GenAI Automation</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('DMRV')">DMRV (Digital Measurement, Reporting &amp; Verification)</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('LIDAR')">LIDAR Drone Carbon Sequestration</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('Computer Vision')">Computer Vision ML Models</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('SaaS')">Waste Traceability SaaS Vertical</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('Reverse Auctions')">Reverse Auction Marketplaces</span>
+                </div>
+            </div>
+
+            <div class="matrix-category">
+                <div class="matrix-label">
+                    <span>📊</span> Commercial Strategy &amp; Governance
+                </div>
+                <div class="matrix-chips">
+                    <span class="matrix-chip" onclick="pulseKeywords('P&L')">Regional P&amp;L Accountability</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('Audit')">Second-Party OEM Supplier Audits</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('CAPA')">CAPA Workflows &amp; Scoring Matrices</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('22-point')">22-Point Supply Chain Audit Matrix</span>
+                    <span class="matrix-chip" onclick="pulseKeywords('Forecasting')">Sales Data Modeling &amp; Tableau Forecasting</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Executive CTA / Contact Banner -->
+        <div class="cta-banner">
+            <h3>Let's Connect &amp; Drive Sustainable Commercial Impact</h3>
+            <p>
+                Open to executive business development, ESG strategy leadership, and tech-enabled sustainability advisory opportunities.
+            </p>
+            <div class="cta-actions">
+                <a href="mailto:abhi.dwi@icloud.com" class="nav-btn nav-btn-primary" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+                    <span>📩 Send Email (abhi.dwi@icloud.com)</span>
+                </a>
+                <a href="tel:+918709952337" class="nav-btn" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+                    <span>📲 Call: +91-8709952337</span>
+                </a>
+                <a href="https://www.linkedin.com/in/abhishekdwi/" target="_blank" rel="noopener noreferrer" class="nav-btn" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+                    <span>🔗 Connect on LinkedIn ↗</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Abhishek Dwivedi • Business Development Manager (Sustainability &amp; ESG)</p>
+        <p style="margin-top: 0.5rem;">
+            Hosted on GitHub Pages • <a href="index.html">Visit Personal Site</a> • <a href="javascript:window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</a>
+        </p>
+    </footer>
+
+    <!-- Interactive Scripts & Motion Graphics Engine -->
+    <script>
+        // 1. Copy-to-clipboard functionality
+        function copyText(text, el) {
+            navigator.clipboard.writeText(text).then(() => {
+                const feedback = el.querySelector('.copy-feedback');
+                if (feedback) {
+                    feedback.classList.add('show');
+                    setTimeout(() => feedback.classList.remove('show'), 2000);
+                }
+            }).catch(err => {
+                window.location.href = el.href;
+            });
+        }
+
+        // 2. Scroll Progress Bar & Timeline Progress
+        window.addEventListener('scroll', () => {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / docHeight) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+
+            // Timeline line fill
+            const timeline = document.querySelector('.timeline-container');
+            const progress = document.getElementById('timeline-progress');
+            if (timeline && progress) {
+                const rect = timeline.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    const visiblePart = Math.min(1, Math.max(0, (windowHeight - rect.top) / rect.height));
+                    progress.style.height = (visiblePart * 100) + '%';
+                }
+            }
+        });
+
+        // 3. Stat Counter Animation on Viewport Entry
+        let countersTriggered = false;
+        function animateCounters() {
+            if (countersTriggered) return;
+            const statsSection = document.querySelector('.stats-grid');
+            if (!statsSection) return;
+
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.95) {
+                countersTriggered = true;
+                const counters = document.querySelectorAll('.counter');
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 1600;
+                    const stepTime = 20;
+                    const steps = duration / stepTime;
+                    const increment = target / steps;
+                    let current = 0;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.innerText = target.toLocaleString();
+                            clearInterval(timer);
+                        } else {
+                            counter.innerText = Math.floor(current).toLocaleString();
+                        }
+                    }, stepTime);
+                });
+            }
+        }
+        window.addEventListener('scroll', animateCounters);
+        window.addEventListener('load', animateCounters);
+
+        // 4. Interactive Experience Filter Chips
+        function filterExperience(filter, btn) {
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.experience-card');
+            cards.forEach(card => {
+                const categories = card.getAttribute('data-category').split(' ');
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.style.display = 'block';
+                    card.style.animation = 'cardIn 0.4s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 5. Keyword Pulse highlighter from Matrix Chips
+        function pulseKeywords(keyword) {
+            const items = document.querySelectorAll('.achievement-item');
+            let matchCount = 0;
+            items.forEach(item => {
+                item.classList.remove('highlighted');
+                if (item.textContent.toLowerCase().includes(keyword.toLowerCase())) {
+                    item.classList.add('highlighted');
+                    matchCount++;
+                }
+            });
+
+            // Scroll smoothly to first match
+            const firstMatch = document.querySelector('.achievement-item.highlighted');
+            if (firstMatch) {
+                firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // 6. Interactive Motion Graphics Canvas (Connected Node Network)
+        (function initCanvas() {
+            const canvas = document.getElementById('motion-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            let particles = [];
+            const particleCount = 42;
+            const maxDistance = 140;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let mouse = { x: null, y: null };
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.7;
+                    this.vy = (Math.random() - 0.5) * 0.7;
+                    this.radius = Math.random() * 2 + 1;
+                    this.color = Math.random() > 0.5 ? '#00f2fe' : '#10b981';
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                    // Mouse gentle repulsion
+                    if (mouse.x !== null) {
+                        const dx = this.x - mouse.x;
+                        const dy = this.y - mouse.y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < 100) {
+                            this.x += (dx / dist) * 2;
+                            this.y += (dy / dist) * 2;
+                        }
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = this.color;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                // Draw connecting lines
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < maxDistance) {
+                            const alpha = (1 - dist / maxDistance) * 0.25;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+    </script>
+</body>
+</html>
